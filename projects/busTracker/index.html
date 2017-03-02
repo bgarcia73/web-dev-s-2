@@ -4,9 +4,22 @@
   <meta charset="utf-8">
   <title>jQuery.parseXML demo</title>
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<style>
+  body{background-color : cyan;}
+ div { width:160;
+ padding:10px;
+  border:5px solid black;
+  margin:5px;}
+
+
+
+
+</style>
+
+
 </head>
 <body>
-
+<div id=bus>
  
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
       <script>
@@ -15,7 +28,7 @@
           
           var apiPassThruUrl = "https://polar-garden-75406.herokuapp.com/apiPassThru.php";
           
-          var apiEndpoint = "http://ctabustracker.com/bustime/api/v2/getroutes";
+          var apiEndpoint = "http://www.ctabustracker.com/bustime/api/v2/getpredictions?key=DAJwE49icruvCzfyGQcetvYL3&rt=152&stpid=12525&format=json";
           
           
           $.ajax({
@@ -24,13 +37,30 @@
               method: 'GET',
               data: {"apiEndpoint": apiEndpoint,
                       "key" : "DAJwE49icruvCzfyGQcetvYL3",
-                      "format":"json"}
+                      "format":"json", 
+                      "rt": 152,
+                      "stpid": 12525,
+                      "direction": "Eastbound",
+              }
             }).done (function (data) {
               console.log(data);
-              $("body").append("<h1>Bus Routes</h1>");
+              $("#bus").append("<h1>Bus Routes</h1>");
              
-              $.each(data["bustime-response"]["routes"], function(i,v) {
-                  $("body").append("Route #" + v.rt + ", " + v.rtnm + "<br>");
+              $.each(data["bustime-response"]["prd"], function(i,v) {
+                  $("#bus").append(
+                    "Route #" 
+                    + v.rt 
+                    + " To "
+                    + v.des
+                    + "<br>"
+                    + "Time to Arrive: "
+                    + v.prdctdn 
+                    + " Minutes"
+                    + "<br>"
+                  
+                  
+                  
+                  );
                 
               })
 
