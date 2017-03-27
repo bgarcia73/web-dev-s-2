@@ -3,12 +3,12 @@
   "name": "Mom's App",
   "icons": [
     {
-      "src":"images/Screen Shot 2017-03-23 at 8.24.31 AM.png",
-      "sizes": "192x192",
+      "src":"icon.png",
+      "sizes": "144x144",
       "type": "image/png"
     }
   ],
-  "start_url": "index.html?utm_source=homescreen",
+  "start_url": "./index.html?utm_source=homescreen",
   "background_color": "#000",
   "Theme_color": "#536878",
   "display": "standalone"

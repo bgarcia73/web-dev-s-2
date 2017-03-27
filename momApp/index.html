@@ -24,9 +24,7 @@
  <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="Mom's App">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <link rel="apple-touch-icon" href="images/Screen Shot 2017-03-23 at 8.24.31 AM.png">
+  <link rel="apple-touch-icon" href="icon.png">
   
   </head>
   
@@ -61,7 +59,7 @@
         
         <div id="screen1" class="screen page-content">Family Pictures
           
-          <img src= "images/Screen Shot 2017-03-24 at 8.32.33 AM.png">
+          <img src= "icon1.png">
        
         <hr>Description</hr>
        </div>
@@ -150,5 +148,19 @@
         console.log("No it didn't. This happened: ", err)
       });
   }
+</script>
+
+<script>
+ $('.mdl-navigation__link').click(function(){
+            
+//  the drawer
+            $('.mdl-layout__drawer').toggleClass('is-visible');
+
+// the transparent overlay that shows when you open the drawer
+$('.mdl-layout__obfuscator').toggleClass('is-visible');   
+            
+ });
+
+ 
 </script>
 </html>
