@@ -1,37 +1,133 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title> </title>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>repl.it</title>
     <style>
-    canvas {
-      border: #333 5px solid;
-    }
- 
-  </style>
-
-    </head>
+   
+            canvas {
+              border:3px solid black;
+               background-image : url("star.jpg");
+            }
+            #player {
+              display:none;
+            }
+          
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="1250" height="675">
+    <img id="logic" src="logic2.png"> 
+    <img id="heart" src="heart.png">
+    <img id="bomb" src="bomb.png">
+    </canvas>
     
-    <body>
-
-<canvas id="myCanvas" width="550px" height="350px"></canvas>
-  
-  <script>
-      var canvas = document.querySelector("#myCanvas");
-      var context = canvas.getContext("2d");
+    <script>
+      var livesRemaining = 3;
+      var score = 0;
+      var level = 1;
+      var paused = false;
+      /*
       
-     context.moveTo(160, 130);
-     context.lineTo(75, 200);
-     context.lineTo(150, 275);
-     context.lineTo(250, 230);
-    context.lineWidth = 5;
-context.strokeStyle = "#333333";
-context.fillStyle = "#FFCC00";
+        main animation loop
+      */
+      var canvas = document.getElementById("myCanvas");
+      var ctx = canvas.getContext("2d");
+      
+      var image = document.getElementById("logic");
+      var logicX = 20
+      var logicY = 100
+      
+      var image1 = document.getElementById("heart")
+      var heartX = 200
+      var heartY = Math.floor(Math.random() * 500)
+      
+      var image2 = document.getElementById("bomb")
+      var bombX = 200
+      var bombY = Math.floor(Math.random() * 500)
+      
+      function animate() {
+        // clear canvas
+          ctx.clearRect(0,0,canvas.width,canvas.height); 
+        
+        // draw background
+        
+        // draw player
+          ctx.drawImage(image, logicX, logicY, 50, 50);
+        // draw harm
+          ctx.drawImage(image2, bombX, bombY, 50, 50);
+          bombX = bombX - 1.5
+        // check for and handle edge condition
+          if (bombX < 0)
+          {
+            bombX = canvas.width;
+            bombY = Math.floor(Math.random() * 560);
+          }
+        // draw benefit
+           ctx.drawImage(image1, heartX, heartY, 50, 50);
+           heartX = heartX - 1.5
+        // check for and handle edge condition
+          if (heartX < 0 )
+          {
+            heartX = canvas.width;
+            heartY = Math.floor(Math.random() * 560);
+          }   
+        // check for harm collision
+          if (logicX < bombX + 35 && logicX + 35 > bombX && logicY < bombY + 35 && logicY + 35 > bombY) 
+          {
+            livesRemaining = livesRemaining - 1
+            bombX = canvas.width;
+            bombY = Math.floor(Math.random() * 560);
+          } 
+          if (livesRemaining <= 0)
+          {
+            paused = true;  
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+          }  
+        // check for benefit collision
+          if (logicX < heartX + 35 && logicX + 35 > heartX && logicY < heartY + 35 && logicY + 35 > heartY) 
+          {
+            score = score + 100
+            heartX = canvas.width;
+            heartY = Math.floor(Math.random() * 560); 
+          }
+        // draw text (lives and score)
+          ctx.font = "15px Arial";
+          ctx.fillStyle = "white";
+          ctx.fillText("Lives: " + livesRemaining, 10, 30);
+          
+          ctx.font = "15px Arial";
+          ctx.fillStyle = "white";
+          ctx.fillText("Score: " + score, 10, 60);
+          
+        //  if the game has not been paused, 
+          if (!paused) {
+            requestAnimationFrame(animate);
+          }
+        
+      }
+          animate();
+          
+      //  event handler for moving player
+      //    use onKeyPress event, and change the player.y value based on the up/down keys
+       document.addEventListener("keydown", move )
+        function move (e) {
+         
+          if (e.keyCode == 40){
+            logicY = logicY + 10 
+          }
+          if (e.keyCode == 38){
+            logicY = logicY - 10 
+          }
+           
+        };
+      
+      
+      
+      
+    </script>
     
-     context.closePath();
-     context.stroke();
-  
-  
-  
-  </script>
-    </body>
+    
+  </body>
 </html>
